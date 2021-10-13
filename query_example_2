@@ -1,0 +1,32 @@
+//JAVIER VERDE MARÍN
+//This example is using a Books Database: The goal is to practice finding documents using more complex conditions
+
+db.titles.find({ $and : [{ "publication_date.year" : { $eq : 1998 } }, { "publication_date.month" : { $eq : 9 } } ] } , {title:1, _id:0})
+
+db.titles.find({ $and : [{ "publication_date.year" : { $gte : 2000 } }, { "publication_date.month" : { $lte : 2005} } ] } , {title:1, _id:0})
+
+db.titles.find({ authors : "J.K. Rowling"} , {title:1, _id:0})
+
+db.titles.find({ $and : [{ authors : "Roald Dahl"}, { 'authors.1' : { $exists : true } } ] } , {title:1, _id:0})
+
+db.titles.find({ $and : [ { 'authors.0' : {$eq : "Roald Dahl" } }, { 'authors.1' : { $exists : true } } ] } , {title:1, _id:0})
+
+db.titles.find({ title : { $regex : /biography/i} }, {title:1, _id:0})
+
+db.titles.find({ $and : [ {authors : "Arturo Pérez-Reverte"}, { language_code : { $not : { $regex : /en/ } } } ] }, {title:1, _id:0})
+
+db.titles.find( {authors : "Laurie Notaro" } )
+
+db.titles.find({ $and : [ { language_code : { $not :{ $regex : /en/ } } } , { $or : [ {authors : "Arturo Pérez-Reverte"}, {authors : "Laurie Notaro" } ] } ] } , {title:1, _id:0})
+
+db.titles.find({ details : { $elemMatch : { currency : "usd", discount : true } } }, {title:1, _id:0})
+
+db.titles.find({ 'details.price' : {$exists : false } }, {title:1,  _id:0})
+
+db.titles.find({ details : { $elemMatch : { currency : "usd", price : {$gt : 95} } } }, {title:1, _id:0})
+
+db.titles.find({ $and : [ { language_code : "spa"}, { 'details.currency' : { $ne : "esp"} } ] }, {title:1, _id:0})
+
+db.titles.find({ $and : [ { '  num_pages' : { $gt : 800 } }, { average_rating : { $gt : 4 } } ] }, {title:1, _id:0})
+
+db.titles.find({ $and : [ {authors : "Arturo Pérez-Reverte"}, {"publication_date.year" : { $lt : 2006 } }, {details : { $elemMatch : { currency : "chf" } } } ] }, {title:1, _id:0})
