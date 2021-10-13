@@ -1,4 +1,4 @@
-# MongodB-Queries
+# MongoDB-Queries
 Several query examples using MongoDB
 
 <table>
