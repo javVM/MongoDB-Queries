@@ -1,2 +1,2 @@
 # MongodB-Queries
-Several queries using MongoDB
+Several query examples using MongoDB
