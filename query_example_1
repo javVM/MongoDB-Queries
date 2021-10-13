@@ -1,0 +1,28 @@
+//JAVIER VERDE MARÍN
+//This example is using a Nobel Prize Database: The goal is to practice finding documents that match the conditions
+
+db.awards.count()
+
+db.awards.findOne()
+
+db.awards.find({ awardYear : { $eq : '2010' } }, {_id : 0, "categoryFullName.en" : 1}).count()
+
+db.awards.find({ prizeAmount : { $eq : 1000000 } }, {_id : 0, "categoryFullName.en" : 1})
+
+db.awards.find({ $and : [ { prizeAmount : { $gt : 150000 } }, { prizeAmount : { $lt : 1000000 } }]}, {_id : 0, "categoryFullName.en" : 1}).count()
+
+db.awards.find({ $and : [ { prizeAmount : { $gt : 700000 } }, { prizeAmount : { $lt : 1000000 } }]}, {_id : 0, "categoryFullName.en" : 1, awardYear: 1}).sort({ awardYear: -1})
+
+db.awards.find({ $and : [ { prizeAmount : { $gt : 700000 } }, { prizeAmount : { $lt : 1000000 } }, { awardYear : { $lt : '1979' } }]},  {_id : 0, "categoryFullName.en" : 1})
+
+db.awards.find({ dateAwarded : { $exists : true } }).pretty()
+
+db.awards.find({ $or : [ { awardYear : { $eq : '2000' } }, { awardYear : { $eq : '1980' } }]}, {_id : 0, "categoryFullName.en" : 1})
+
+db.awards.find({ laureates: { $size : 3 } },  {_id : 0, "categoryFullName.en" : 1}).count()
+
+db.awards.distinct("laureates.knownName.en")
+
+db.awards.distinct("laureates.knownName.en", { laureates: { $size : 3 } })
+
+db.awards.distinct('awardYear', { prizeAmount : { $gt : 2900000 } })
